@@ -5,12 +5,17 @@ import styles from "./style.module.scss";
 function Weather() {
   const [weatherData, setWeatherData] = useState({});
   const [celsius, setCelsius] = useState("celsius");
+  const [city, setCity] = useState("zp");
   const [units, setUnits] = useState("km");
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
     fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=47.8517&longitude=35.1171&current=temperature_2m,windspeed_10m&hourly=temperature_2m${
+      `https://api.open-meteo.com/v1/forecast?${
+        city === "zp"
+          ? "latitude=47.8517&longitude=35.1171"
+          : "latitude=50.2667&longitude=24.4333"
+      }&current=temperature_2m,windspeed_10m&hourly=temperature_2m${
         celsius === "celsius" ? "" : "&temperature_unit=fahrenheit"
       }${units === "km" ? "" : "&windspeed_unit=ms"}`
     )
@@ -22,7 +27,7 @@ function Weather() {
       .finally(() => {
         setLoading(false);
       });
-  }, [celsius, units]);
+  }, [celsius, units, city]);
 
   const temperatureC = weatherData?.current?.temperature_2m;
   const unitsC = weatherData?.current_units?.temperature_2m;
@@ -34,6 +39,9 @@ function Weather() {
   }
   function handleSpeedChange(value) {
     setUnits(value);
+  }
+  function handleCityChange(value) {
+    setCity(value);
   }
   function display() {
     if (loading) {
@@ -57,7 +65,13 @@ function Weather() {
     <article>
       <div className={styles.main}>
         <div className={styles.select}>
-          {" "}
+          <select
+            defaultValue={city}
+            onChange={(e) => handleCityChange(e.target.value)}
+          >
+            <option value="zp">Zaporizhzhia</option>
+            <option value="kv">Kiyv</option>
+          </select>
           <select
             defaultValue={celsius}
             onChange={(e) => handleCelsiusChange(e.target.value)}
