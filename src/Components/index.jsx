@@ -29,10 +29,8 @@ function Weather() {
       });
   }, [celsius, units, city]);
 
-  const temperatureC = weatherData?.current?.temperature_2m;
-  const unitsC = weatherData?.current_units?.temperature_2m;
-  const speedKmH = weatherData?.current?.windspeed_10m;
-  const unitsKmH = weatherData?.current_units?.windspeed_10m;
+  const temperatureC = `${weatherData?.current?.temperature_2m}${weatherData?.current_units?.temperature_2m}`;
+  const speedKmH = `${weatherData?.current?.windspeed_10m}${weatherData?.current_units?.windspeed_10m}`;
 
   function handleCelsiusChange(value) {
     setCelsius(value);
@@ -49,14 +47,8 @@ function Weather() {
     } else {
       return (
         <>
-          <div>
-            {temperatureC}
-            {unitsC}
-          </div>
-          <div>
-            {speedKmH}
-            {unitsKmH}
-          </div>
+          <div>{temperatureC}</div>
+          <div>{speedKmH}</div>
         </>
       );
     }
@@ -85,7 +77,7 @@ function Weather() {
           >
             <option value="km">km/h</option>
             <option value="m">m/s</option>
-          </select>{" "}
+          </select>
         </div>
         <div>{display()}</div>
       </div>
