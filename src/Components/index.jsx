@@ -1,34 +1,16 @@
-import { useState, useEffect } from "react";
 import React from "react";
 import styles from "./style.module.scss";
 
-function Weather() {
-  const [weatherData, setWeatherData] = useState({});
-  const [celsius, setCelsius] = useState("celsius");
-  const [city, setCity] = useState("zp");
-  const [units, setUnits] = useState("km");
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    fetch(
-      `https://api.open-meteo.com/v1/forecast?${
-        city === "zp"
-          ? "latitude=47.8517&longitude=35.1171"
-          : "latitude=50.2667&longitude=24.4333"
-      }&current=temperature_2m,windspeed_10m&hourly=temperature_2m${
-        celsius === "celsius" ? "" : "&temperature_unit=fahrenheit"
-      }${units === "km" ? "" : "&windspeed_unit=ms"}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setWeatherData(data);
-      })
-      .catch((err) => console.log("Error:", err))
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [celsius, units, city]);
-
+function Weather({
+  weatherData,
+  celsius,
+  city,
+  units,
+  setCelsius,
+  setUnits,
+  setCity,
+  loading,
+}) {
   const temperatureC = `${weatherData?.current?.temperature_2m}${weatherData?.current_units?.temperature_2m}`;
   const speedKmH = `${weatherData?.current?.windspeed_10m}${weatherData?.current_units?.windspeed_10m}`;
 
