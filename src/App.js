@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 function App() {
   const [weatherData, setWeatherData] = useState({});
   const [celsius, setCelsius] = useState("celsius");
-  const [city, setCity] = useState("zp");
+  const [city, setCity] = useState("Zaporizhzhia");
   const [loading, setLoading] = useState(true);
   const [units, setUnits] = useState("km");
 
@@ -13,7 +13,7 @@ function App() {
     setLoading(true);
     fetch(
       `https://api.open-meteo.com/v1/forecast?${
-        city === "zp"
+        city === "Zaporizhzhia"
           ? "latitude=47.8517&longitude=35.1171"
           : "latitude=50.2667&longitude=24.4333"
       }&current=temperature_2m,windspeed_10m&hourly=temperature_2m${

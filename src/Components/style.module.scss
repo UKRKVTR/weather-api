@@ -30,3 +30,12 @@ article {
   height: 100vh;
   @extend %flex;
 }
+.parametrs {
+  background-color: rgb(16, 115, 148);
+  width: 300px;
+  height: 150px;
+  border-radius: 20px;
+  @extend %flex;
+  flex-direction: column;
+  gap: 20px;
+}

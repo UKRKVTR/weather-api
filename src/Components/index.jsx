@@ -29,8 +29,9 @@ function Weather({
     } else {
       return (
         <>
-          <div>{temperatureC}</div>
-          <div>{speedKmH}</div>
+          <div>{city}</div>
+          <div>Temperature: {temperatureC}</div>
+          <div>Wind speed: {speedKmH}</div>
         </>
       );
     }
@@ -43,8 +44,8 @@ function Weather({
             defaultValue={city}
             onChange={(e) => handleCityChange(e.target.value)}
           >
-            <option value="zp">Zaporizhzhia</option>
-            <option value="kv">Kiyv</option>
+            <option value="Zaporizhzhia">Zaporizhzhia</option>
+            <option value="Kiyv">Kiyv</option>
           </select>
           <select
             defaultValue={celsius}
@@ -61,7 +62,7 @@ function Weather({
             <option value="m">m/s</option>
           </select>
         </div>
-        <div>{display()}</div>
+        <div className={styles.parametrs}>{display()}</div>
       </div>
     </article>
   );
